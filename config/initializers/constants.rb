@@ -1,0 +1,1 @@
+CONFIG = YAML.load(File.read("#{Rails.root}/config/synthea_builder.yml"))

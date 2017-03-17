@@ -1,0 +1,40 @@
+<label for="filename">Filename</label><br />
+<input id="filename" name="filename" /><br /><br />
+
+<label for="module">Module JSON</label><br/>
+<textarea id="module" name="module">
+</textarea>
+<button id="refresh" name="refresh">Save</button><br/>
+<div id="errors" name="errors"></div>
+<div id="graphviz" name="graphviz"></div>
+<script type="text/javascript">
+	$( "#refresh" ).click(function() {
+    $("#errors").empty();
+    try
+    {
+      text = $("#module").val();
+      text = JSON.stringify( JSON.parse(text) ); // throws an exception if invalid
+
+
+      $.post( "/modules/", { filename: $("#filename").val(), module: text })
+        .done(function( data ) {
+          $("#errors").empty().append(data.errors);
+          $("#graphviz").empty();
+
+          if (data.graphviz != null)
+          {
+            img = $("<img />");
+            img.attr("src", "data:image/png;base64," + data.graphviz);
+            $("#graphviz").append(img);
+          }
+        });
+
+    }
+    catch (e)
+    {
+      $("#errors").empty().append("Content is not valid JSON")
+    }
+
+  });
+
+</script>
