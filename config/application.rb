@@ -22,5 +22,6 @@ module SyntheaBuilder
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.secret_key_base = 'c38ffdd096430eb0f28331aca13837cad704563c86b2c23c7efb58a7b644e3e12cea42a6fabb82e858ccf062ff61259bfdad9c548b451f3efe5c57a4f614b1ee'
   end
 end

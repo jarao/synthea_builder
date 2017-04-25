@@ -6,7 +6,7 @@ gem 'rails', '4.0.13'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem 'jbuilder', '~> 1.2'
 
-gem 'nokogiri', '1.6' # otherwise everythin breaks
+gem 'nokogiri', '>=1.6.8.rc3' # otherwise everythin breaks
 gem 'pry'
 
 gem 'synthea', git: 'https://github.com/synthetichealth/synthea'
