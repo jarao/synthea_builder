@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Synthea Visualize Module</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<script type='text/javascript'>
+	/*TODO: VisualizeModule allows users to select a json module
+	 *from a folder on their devices and passes the JSON from that
+	 *module to a web service that calls GraphViz to create a diagram */
+	 
+	 jsonObj = {}
+	 filename = ""
+	 
+	/*TODO: Once fileBrowser's input is not empty, try to read the
+	 *file's contents into a JSON object. Assign the name of the file
+	 *to the JSON object's filename variable, and the entire module object
+	 *should become the module variable. */
+	function retrieveModule(){
+			
+	}
+	
+	/*Passes the JSON object and name to a web service
+	 *that visualizes it with GraphViz.*/
+	function visualize() {
+		var data = {
+			module: jsonObj,
+			filename: document.getElementById('moduleName').value
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "http://localhost:3000/modules/",
+			params: $.param(data),
+			success: function(a) {
+				window.location.href = "?"
+					+ $.param(a) + "&" + $.param(data)
+			}
+		});
+	}
+	
+	/*TODO: Once the file browser text box has a file path 
+	 *as its value this function dynamically adds a large 
+	 *text area to the page to display JSON contents. */
+	function addJSONView(){
+		selectedFile = document.getElementById("fileBrowser").value;
+		transTypeContainer = document.getElementById("JSONViewContainer");
+		while (JSONViewContainer.hasChildNodes()){
+			JSONViewContainer.removeChild(transTypeContainer.lastChild);
+		}
+		JSONViewContainer.appendChild(document.createTextNode("JSON from file: " + selectedFile));
+		boxView = document.createElement("textarea");
+		boxView.type = "text";
+		boxView.value = jsonObj;
+		JSONViewContainer.appendChild(boxView);
+		JSONViewContainer.append(document.createElement("br"));
+	}
+
+	</script>
+</head>
+<body>
+	<h1> Synthea Health </h1><h2>Visualize Module </h2>
+	Please select a valid module file with extension .json to display its graph. <br><br>
+	<input id="fileBrowser" type='file' />
+	</div><br><br>
+	<button id="generateGraph" onclick="visualize()" >Generate Graph</button><br/>
+	</br>
+	<div id="JSONViewContainer"></div>
+</body>
+</html>

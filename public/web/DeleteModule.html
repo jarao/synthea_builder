@@ -1,0 +1,57 @@
+<html>
+<title>Synthea Delete Module</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<script type='text/javascript'>
+	/*NOTE: Maybe add this page's contents to the Edit page */
+	/*TODO: DeleteModule allows users to select a json module
+	 *from a folder on their devices and deletes that file
+	 *from the user's file system*/
+	 
+	 jsonObj = {}
+	 filename = ""
+	 
+	/*TODO: Once fileBrowser's input is not empty, try to read the
+	 *file's contents into a JSON object and show the contents
+	 *of the file in the JSONView div. If this file has the contents
+	 *of the file the user wishes to delete, allow the user to delete
+	 *the file from his/her file system. */
+	function retrieveModule(){
+			
+	}
+	
+	/*TODO: Once the file browser text box has a file path 
+	 *as its value this function dynamically adds a large 
+	 *text area to the page to display JSON contents. */
+	function addJSONView(){
+		selectedFile = document.getElementById("fileBrowser").value;
+		transTypeContainer = document.getElementById("JSONViewContainer");
+		while (JSONViewContainer.hasChildNodes()){
+			JSONViewContainer.removeChild(transTypeContainer.lastChild);
+		}
+		JSONViewContainer.appendChild(document.createTextNode("JSON from file: " + selectedFile));
+		boxView = document.createElement("textarea");
+		boxView.type = "text";
+		boxView.value = jsonObj;
+		JSONViewContainer.appendChild(boxView);
+		JSONViewContainer.append(document.createElement("br"));
+	}
+	
+	/*TODO: Ask the users if they are sure they want to 
+	 *delete the file from the file system. If "Yes", 
+	 *delete the module from the user's file system. */
+	function deleteModule(){
+	}
+
+	</script>
+</head>
+<body>
+	<h1> Synthea Health </h1><h2>Delete Module </h2>
+	Please select a valid module file with extension .json to delete. <br><br>
+	<input id="fileBrowser" type='file' />
+	</div><br><br>
+	<button id="btnDelete" onclick="deleteModule()" >Delete Module</button><br/>
+	</br>
+	<br><br>
+	<div id="JSONViewContainer"></div>
+</body>
+</html>

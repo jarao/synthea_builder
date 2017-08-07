@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Synthea Edit Module</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<script type='text/javascript'>
+	/*TODO: EditModule allows users to select a json module
+	 *from a folder on their devices and populates a form with
+	 *its contents. Once the form accurately displays what the 
+	 *user wants, the file saves an edited copy of the module to
+	 *the user's computer with an _edited-v.i suffix if the base
+	 *name of the module also exists in the same directory. */
+
+	 jsonObj = {}
+	 filename = ""
+	 
+	/*TODO: Once fileBrowser's input is not empty, try to read the
+	 *file's contents into a JSON object and show the contents
+	 *of the file in the JSONView div. If this file has the contents
+	 *of the file the user wishes to edit, proceed to populate the 
+	 *Synthea form. */
+	function retrieveModule(){
+			
+	}
+	
+	/*NOTE: Make part of this shared code between create and edit later. */
+	/*TODO: Populate the Synthea form dynamically with the contents of
+	 *this .json. */
+	function editModule(){
+	}
+	
+	/*NOTE: Make this save shared code between create and edit later. */
+	/*TODO: Allow the user to save the current jsonObject to a new file
+	 *with _edited-v.i number attached to the filename if the user saves
+	 *it to the same directory as the remaining Synthea files. */.
+	function saveModule(){
+	}
+	
+	</script>
+</head>
+<body>
+	<h1> Synthea Health </h1><h2>Edit Module </h2>
+	Please select a valid module file with extension .json to edit. <br><br>
+	<input id="fileBrowser" type='file' />
+	</div><br><br>
+	<button id="btnEdit" onclick="editModule()" >Edit Module</button><br/>
+	</br>
+	<br><br>
+	<div id="JSONViewContainer"></div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+/* Synthea style.css */
+
+h1{
+    color: green;
+    font-family: harlow solid;
+    font-size: 150%;
+}
+
+h2{
+	color: green;
+	font-family: Courier
+	font-size: 150%
+}
+
+p{
+	color: black;
+	font-family: courier;
+	font-size: 100%;
+}
+
+iframe{
+	width: 40%;
+	height: 100%
+}
+
+
+#fileBrowser{
+	background-color:'white'; 
+	width:450px;
+}

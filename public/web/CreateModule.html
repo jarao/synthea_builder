@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Synthea Create Module</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<script src="../scripts/varobjects.js"></script>
+	<script type='text/javascript'>
+		
+		/*This page ideally is the top half of a two-frame page. 
+		 *The diagram will continually refresh to the bottom frame
+		 *while the questions run in the top frame. It shows the
+		 *JSON so far in a textbox */
+		
+		/* Declarations and Constructors */
+		jsonObj = {};
+		jsonOutput = "test me out"
+
+		/* Accessors and Modifiers */
+		
+		/* TODO: Retrieve the inputs from the 
+		 * CreateModule.html page and store them 
+		 * in an object */
+		function getJSONObj(){
+			return jsonObj; 
+		}
+		
+		/* Utilities */
+		
+		/* Converts a JSON string to a JSON Object */		
+		function convertS2JObj(str){
+			return JSON.parse(str);
+		}
+		
+		/* Converts a JSON object to a JSON string */
+		function convertJObj2S(obj){
+			return JSON.stringify(obj);
+		}
+		
+		/* TODO: Allow user to select a directory to write
+		 * this file to, validate the name of this module
+		 * does not already exist, then save the file. */
+		function saveToFile(){	
+		}
+		
+		/* TODO: Check the current filenames to make sure
+		 * the module doesn't exist already in the directory. If it does, 
+		 * send an error message to the user, asking for a new name. If it doesn't
+		 * then continue to create a new json file to save */
+		function validateName(){
+			createJSON()
+		}
+		
+		/*ADDED TO VISUALIZEMODULE.HTML
+		 *Passes the JSON object and name to a web service
+		 *that visualizes it with GraphViz.*/
+		function visualize() {
+			var data = {
+				module: jsonObj,
+				filename: document.getElementById('moduleName').value
+			};
+			/*TODO get this form and pass data 
+			$.ajax({
+				type: "POST",
+				url: "http://localhost:3000/modules/",
+				params: $.param(data),
+				success: function(a) {
+					window.location.href = "?"
+						+ $.param(a) + "&" + $.param(data)
+				}
+			}); */
+		}
+		
+		/*Creates a JSON Object and populates it with an initial nodes
+		 *using the varobjects object. */
+		function createJSON() {
+			mName = document.getElementById('moduleName').value;
+			moduleRemarks = document.getElementById('moduleDescription').value;
+			/* Name and describe the module */
+			jsonObj.name = mName;
+			jsonObj.remarks = moduleRemarks;
+			
+			/* Specify the transition to direct (other transitions undeveloped) */
+			Initial.transition = "Terminal"; //terminal for now 
+			
+			/* Add the initial object to the json object */
+			jsonObj.states = states;
+			jsonObj.states["Initial"] = Initial;
+			jsonObj.states["Terminal"] = Terminal;
+			jsonStr = convertJObj2S(jsonObj);
+			
+			/* Refresh the view that shows the JSON so far */
+			textRefresh(jsonStr);
+		}
+		
+		/* Refresh the JSON text view area */
+		function textRefresh(str){
+			document.getElementById("moduleJSON").value = str;
+		}
+		
+		/*Transitions TODO: The transitions should all dynamically be added 
+		 *to the page with a generic id name of transitionType_i id or name
+		 *then cycle through the types and labels creating states. This
+		 *process refreshes the nodes each time a new state is added */
+		 
+		/* Dynamically adds a direct transition to the page */
+		function addDirect(){
+			var type = document.getElementById("transitionType").value;
+			var transTypeContainer = document.getElementById("transitionTypeIntakeContainer");
+			while (transTypeContainer.hasChildNodes()){
+				transTypeContainer.removeChild(transTypeContainer.lastChild);
+			}
+			transTypeContainer.appendChild(document.createTextNode("Directly Transition to: "));
+			inputval = document.createElement("input");
+			inputval.type = "text";
+			inputval.id = "state_1";
+			inputval.value = "";
+			inputval.onchange = "createState(val)"; //once the new state name is entered create a state
+			transTypeContainer.appendChild(inputval);
+			transTypeContainer.appendChild(document.createElement("br"));
+		}
+		
+		/*TODO: Once a new state transition has been added, change the value of the
+		 *previous state to transition to it then add it back to jsonObj and *refresh the text rendering of the json */
+		function createState(val){
+			state_1 = Simple; //make a copy of the simple template
+			state_1.name = val;
+			state_1.transition = Terminal;
+			jsonObj.states.Initial.transition = state_1.name;
+			//jsonObj.states.[state_1.name] = state_1; //eventually cycle through add state_i
+			textRefresh(convertJObj2S(jsonObj));
+		}
+		
+		/*Make generic at a later date to not apply to one transition but multiple. */
+		/*TODO: Create a distributed transition based on the number of nodes*/
+		function getNumDistributions(){
+			/*var transNumberContainer = document.getElementById("transNumContainer");
+			while (transNumberContainer.hasChildNodes()){
+				transNumberContainer.removeChild(transNumberContainer.lastChild);
+			}
+			transNumberContainer.appendChild(document.createTextNode("How many states does this distribute to?: ");
+			var inputNum = document.createElement("input");
+			inputNum.type = "text";
+			transNumberContainer.appendChild(inputNum);*/
+		}
+		
+		/*TODO: Ask the user how many nodes they will use to distribute
+		 *the transition then create those nodes in a loop of that length. */
+		function addDistributed(){
+		}
+		
+		/*TODO: Add conditional transition to state */
+		function addConditional(){
+		}
+		
+		/*TODO: Add complex transition to state */
+		function addComplex(){
+		}		
+		
+		/*TODO: Use code similar to this to add multiple states dynamically
+		 *for the distributed states*/
+		function addFields(){
+            // Number of inputs to create
+            var number = document.getElementById("member").value;
+            // Container <div> where dynamic content will be placed
+            var container = document.getElementById("container");
+            // Clear previous contents of the container
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                container.appendChild(document.createTextNode("Member " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = "member" + i;
+                container.appendChild(input);
+                // Append a line break 
+                container.appendChild(document.createElement("br"));
+            }
+		}
+	</script>
+</head>
+<body>
+	<h1> Synthea Health </h1><h2>Create a New Module </h2>
+
+	What is the name of the new module?: <input class="moduleTitle" type="text" size= "50" id="moduleName" name="moduleName" value="">
+	<br>
+	<br>
+	Description of module: 
+	<textarea class="moduleTitle" type="text" rows="6" cols="50" id="moduleDescription" name="moduleDescription" value=""></textarea>
+	<button href="#" id="filldetails" onclick="validateName()">Submit</button>
+	<br>
+	<br>	
+	<table>
+	<tr>
+		<td valign="top">
+			<div "style=width:250px" id="divClinicalPathwayJSON">
+				JSON So Far:<br><textarea class="moduleJSON" type="text" rows="15" cols="50" id="moduleJSON" name="moduleJSON" value=""></textarea>
+			</div>
+		</td>
+		<td valign="top"><img id="imgRefresh" onclick="textRefresh(jsonStr)" src="../images/Refresh.png"/></td>
+	</tr>
+
+	<br>
+	<button id="generateGraph" onclick="visualize()">
+		Generate Graph
+	</button>
+	<br>
+	<br>
+	Transition type: <form initial="initial" action="">
+		<input initial="initial" type="radio" id="transitionType" name="transitionType" onclick="addDirect()" value="direct">direct
+		<input initial="initial" type="radio" id="transitionType" name="transitionType" onclick="addDistributed()" value="distributed">distributed
+		<input initial="initial" type="radio" id="transitionType" name="transitionType" onclick="addConditional()" value="conditional">conditional
+		<input initial="initial" type="radio" id="transitionType" name="transitionType" onclick="addComplex()" value="complex">complex
+	<br>
+	<div id="transNumContainer"/>
+	<div id="transitionTypeIntakeContainer"></div>
+	
+</body>
+</html>

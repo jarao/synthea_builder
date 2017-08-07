@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Synthea Health Main Menu</title>
+<br/><br/><br/>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+<center><b><h1>Welcome to Synthea Health!</h1><br/>Please selection from the following options:</b></center><br/><br/>
+	<script>
+		function openWeb(input){
+
+			if(input = 'create'){
+				window.open("CreateModule.html",'_self',false);
+			}
+			else if (input == 'edit'){
+				window.open("EditModule.html",'_blank', width = '1200', height = '1600');
+			/*TODO: Go to a page that dynamically retrieves all the modules 
+			 *edit module once one has been selected */
+			}
+			else if (input == 'delete'){
+				window.open("DeleteModule.html",'_blank', width = '1200', height = '1600');
+			/*TODO: Go to a page that dynamically retrieves all the modules
+			 *Remove an existing module once a module has been selected */
+			}
+			else if (input == 'diagram'){
+				window.open("VisualizeModule.html",'_blank', width = '1200', height = '1600');
+			/*TODO: Go to a page that dynamically retrieves all the modules
+			 *On new page launch graphViz command once a module has been selected*/
+			}
+			else {
+			//do nothing
+			}
+        }
+	</script>
+</head>
+<body>
+<center>
+	<button type="button" onclick="openWeb('create');">Create a new module</button><br/><br/>
+	<button type="button" onclick="openWeb('edit');">Edit a new module</button><br/><br/>
+	<button type="button" onclick="openWeb('delete');">Delete a new module</button><br/><br/>
+	<button type="button" onclick="openWeb('diagram');">Create a diagram from an existing module</button><br/>
+</center>
+	</body>
+</html>
